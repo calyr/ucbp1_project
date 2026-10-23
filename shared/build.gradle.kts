@@ -13,6 +13,18 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room3)
+    alias(libs.plugins.wire)
+}
+
+wire {
+    sourcePath {
+        srcDir("src/commonMain/proto")
+    }
+
+    kotlin {
+        rpcRole = "client"
+        rpcCallStyle = "suspending"
+    }
 }
 
 detekt {
@@ -108,6 +120,8 @@ kotlin {
             implementation(libs.androidx.sqlite.bundled)
             implementation(libs.firebase.database)
             implementation("edu.ucb.ds:shared:1.0.0-SNAPSHOT")
+            implementation(libs.wire.runtime)
+            implementation(libs.wire.grpc.client)
 
         }
         commonTest.dependencies {
